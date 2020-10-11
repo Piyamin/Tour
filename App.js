@@ -20,11 +20,23 @@ import HomeScreen from './pages/HomeScreen';
 import SettingsScreen from './pages/SettingsScreen';
 import DetailsScreen from './pages/DetailsScreen';
 import ProfileScreen from './pages/ProfileScreen';
+import StaffScreen from './pages/StaffScreen';
+import CustomerScreen from './pages/CustomerScreen';
+import PackageScreen from './pages/PackageScreen';
+import FoodPackageScreen from './pages/FoodPackageScreen';
+import WebPackageScreen from './pages/WebPackageScreen';
+
 const HomeStack = createStackNavigator(
   {
     //Defination of Navigaton from home screen
     Home: { screen: HomeScreen },
     Details: { screen: DetailsScreen },
+    Staff: { screen: StaffScreen },
+    Customer: { screen: CustomerScreen },
+    Package: { screen: PackageScreen },
+    WebPackage: { screen: WebPackageScreen },
+    FoodPackage: { screen: FoodPackageScreen },
+
   },
   {
     defaultNavigationOptions: {
@@ -44,6 +56,8 @@ const SettingsStack = createStackNavigator(
     Settings: { screen: SettingsScreen },
     Details: { screen: DetailsScreen },
     Profile: { screen: ProfileScreen },
+    WebPackage: { screen: WebPackageScreen },
+    FoodPackage: { screen: FoodPackageScreen },
   },
   {
     defaultNavigationOptions: {
@@ -57,10 +71,36 @@ const SettingsStack = createStackNavigator(
     },
   }
 );
+const PackageStack = createStackNavigator(
+  {
+    //Defination of Navigaton from setting screen,
+    Package: { screen: PackageScreen },
+    WebPackage: { screen: WebPackageScreen },
+    FoodPackage: { screen: FoodPackageScreen },
+  },
+  {
+    defaultNavigationOptions: {
+      //Header customization of the perticular Screen
+      headerStyle: {
+        backgroundColor: '#42f44b',
+      },
+      headerTintColor: '#FFFFFF',
+      title: 'Package',
+      //Header title
+    },
+  }
+);
+
 const App = createBottomTabNavigator(
   {
-    Home: { screen: HomeStack },
-    Settings: { screen: SettingsStack },
+    Home: { screen: HomeScreen },
+    Staff: { screen: StaffScreen },
+    Customer: { screen: CustomerScreen },
+    Package: { screen: PackageScreen },
+    Settings: { screen: SettingsScreen },
+    
+    
+
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -69,14 +109,28 @@ const App = createBottomTabNavigator(
         let IconComponent = Ionicons;
         let iconName;
         if (routeName === 'Home') {
-          iconName = `ios-information-circle${focused ?
+          iconName = `home${focused ?
+            '' : '-outline'
+          }`;
+        } else if (routeName === 'Staff') {
+          iconName = `person${focused ?
             '' : '-outline'
           }`;
         } else if (routeName === 'Settings') {
-          iconName = `ios-checkmark-circle${focused ?
+          iconName = `settings${focused ?
+            '' : '-outline'
+          }`;
+        } else if (routeName === 'Customer') {
+          iconName = `body${focused ?
+            '' : '-outline'
+          }`;
+        } else if (routeName === 'Package') {
+          iconName = `folder${focused ?
             '' : '-outline'
           }`;
         }
+        
+        
         return <IconComponent
                  name={iconName}
                  size={25}
